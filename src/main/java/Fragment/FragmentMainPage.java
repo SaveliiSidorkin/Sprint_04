@@ -34,7 +34,6 @@ public class FragmentMainPage extends BasePage {
         return driver.findElements(answersText).get(index).getText();
     }
 
-    //}
     //метод для клика на первую кнопку заказать
     public void clickFirstOrderButton() {
         driver.findElement(firstOrderButton).click();
@@ -51,16 +50,21 @@ public class FragmentMainPage extends BasePage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
     }
 
+    //метод клика на кнопку заказать через параметр
+    public void clickOrderButton(String orderButton) {
+        switch (orderButton){
+            case "firstOrderButton":
+                clickFirstOrderButton();
+            case "secondOrderButton":
+                scrollToSecondOrderButton();
+                clickSecondOrderButton();
+        }
+    }
+
     //скролл до блока с вопросами
     public void scrollToAnswers() {
         WebElement element = driver.findElement(By.xpath(".//div[@class='Home_FAQ__3uVm4']"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
-    }
-
-    //возврат на предыдущую страницу
-    public void backToMainPage() {
-        driver.navigate().back();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(firstOrderButton));
     }
 
 
